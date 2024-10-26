@@ -1,7 +1,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
-from .routers import users
+from .routers import users, chatbot
 
 app = FastAPI()
 
@@ -18,6 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(users.router)
+app.include_router(chatbot.router)
 
 @app.get("/")
 async def root():
