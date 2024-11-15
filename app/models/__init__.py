@@ -19,5 +19,5 @@ class User(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str = None
-    table_name: str | None = "embeddings_multilingual_LIMIT_10000"
+    table_name: str | None = "tablaembeddings"
     k: int | None = 5

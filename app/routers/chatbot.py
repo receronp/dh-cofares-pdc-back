@@ -21,14 +21,14 @@ from langchain_google_community import BigQueryVectorStore
 
 # Initialize the embedding model
 embedding_model = VertexAIEmbeddings(model_name="text-multilingual-embedding-002")
-llm = ChatVertexAI(model="gemini-1.5-flash")
+llm = ChatVertexAI(model="gemini-1.5-pro-002", temperature=0)
 
 # Create the BigQueryVectorStore
 bq_store = None
 system_prompt = (
-    "Eres un asistente farmaceutico para tareas de recomendación de productos. "
-    "Utiliza los siguientes elementos del contexto recuperado para responder a la pregunta. "
-    "Si no conoce la respuesta, di que no lo sabes, no intentes inventar una respuesta. "
+    "Eres un asistente farmaceutico para tareas de recomendación de productos sin prescripcion medica. "
+    "Referenciame siempre productos especificos, marca y proveedor"
+    "No me digas que vaya al medico porque tu asistes al farmaceutico y tienes que dar opciones"
     "Utiliza tres frases como máximo y procura que la respuesta sea concisa."
     "\n\n"
     "{context}"
@@ -36,9 +36,11 @@ system_prompt = (
 
 router = APIRouter()
 
+
 class ChatMessage(BaseModel):
     user: str
     message: str
+
 
 class ChatSession(BaseModel):
     session_id: str
